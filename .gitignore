@@ -2,6 +2,8 @@
 # Folders
 
 # Files
+*.vtu
+*.msh
 
 ### VisualStudioCode ###
 .vscode
