@@ -11,15 +11,15 @@ from jax_fem.problem import Problem
 from jax_fem.utils import save_sol
 
 # If you have multiple GPUs, set the one to use.
-device = ' cpu'
+# device = ' cpu'
 
-if device == 'gpu':
-    os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+# if device == 'gpu':
+#    os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 
 # Define some useful directory paths.
-# crt_file_path = os.path.dirname(__file__)
-crt_file_path = os.getcwd()
-data_dir = os.path.join(crt_file_path, '05a_data')
+crt_file_path = os.path.dirname(__file__)
+# crt_file_path = os.getcwd()
+data_dir = os.path.join(crt_file_path, 'data/test_simulation')
 vtk_dir = os.path.join(data_dir, 'vtk')
 
 # Define the thermal problem. 
@@ -145,12 +145,12 @@ vtk_path = os.path.join(vtk_dir, f"u_{0:05d}.vtu")
 save_sol(problem_T.fes[0], sol_T_old, vtk_path)
 
 # Start the major loop of time iteration.
-dt = 10 * 1e-6  # time increment ???
+dt = 5 * 1e-6  # time increment ???
 laser_on_t = 0.5 * Lx / vel  # time duration for scanning over half the length
 simulation_t = 2 * laser_on_t  # total simulation time
 ts = np.arange(0., simulation_t, dt)  # time steps
 
-for i in range(len(ts[1:100])):
+for i in range(len(ts[1:])):
     laser_center = np.array([Lx * 0.25 + vel * ts[i + 1], Ly / 2., Lz])  # laser center in the middle of the powder
     switch = np.where(ts[i + 1] < laser_on_t, 1., 0.) # Turn off the laser after some time
     print(f"\nStep {i + 1}, total step = {len(ts[1:])}, laser_x = {laser_center[0]}, Lx = {Lx}, laser ON = {ts[i + 1] < laser_on_t}")
