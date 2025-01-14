@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=12
 #SBATCH --gpus-per-task=1
-#SBATCH --mem-per-cpu=32G
+#SBATCH --mem-per-cpu=5G
 #SBATCH --account=research-ceg-he
 #SBATCH --output=logs/output.%j.out
 #SBATCH --error=logs/error.%j.err
